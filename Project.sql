@@ -24,7 +24,7 @@ VALUES	('994IT','Paul','Young','6479178274','paul.youngda@gmail.com','354','Dubl
 
 INSERT INTO Student(StudentID, FirstName, LastName, PhoneNo, Email, StreetNo, StreetName, City, Province, PostalCode)
 VALUES	('857IT','Laura','Cole','647235986','lauracole@gmail.com','3645','Bayview Ave','Markham','Ontario','789465');
-GO
+
 DELETE FROM Student WHERE StudentId = '' -- for example '857IT'
 
 CREATE VIEW StudentByLastName
@@ -33,7 +33,6 @@ AS
 			UPPER(LastName) AS UpperLastName
 	FROM	Student
 	WHERE	LastName = 'Young'
-GO
 
 -- SELECT * FROM Student
 -- SELECT * FROM StudentByLastName
@@ -48,31 +47,70 @@ CREATE TABLE Grades
 	FinalExam		DECIMAL(3,2)	NULL
 );
 GO
+
+INSERT INTO Grades(CourseID, Attendance, Quizes, Project, FinalExam)
+VALUES ('', , , , )
+
 SELECT * FROM Grades
 
 DROP TABLE IF Exists Finance
 CREATE TABLE Finance
 (
-	PaymentType		VARCHAR(15)		NOT NULL	CONSTRAINT PaymentType PRIMARY KEY,
+	PaymentID		VARCHAR(5)		NOT NULL	CONSTRAINT PaymentType PRIMARY KEY,
+	PaymentType		VARCHAR(15)		NULL,	
 	Tuition			DECIMAL(5,2)	NULL,
 	LateFees		DECIMAL(5,2)	NULL,
 	Sales			DECIMAL(4,2)	NULL,
 	Scholarship		DECIMAL(5,2)	NULL
 );
 GO
-SELECT * FROM Finance
 
-DROP TABLE IF Exists Course 
+INSERT INTO Finance(PaymentID, PaymentType, Tuition, LateFees, Sales, Scholarship)
+VALUES	('WT001','Wire Transfer', 6.000, 0, 0, 0),
+		('CS001','Cash', 10.000, 0, 1.000, 0),
+		('CS002','Cash', 11.500, 500, 0, 5.000);
+		
+GO
+
+DELETE FROM Finance WHERE PaymentID = 'CS002' -- for example 'Cash'
+
+CREATE VIEW FinanceByPaymentType
+AS
+	SELECT	PaymentType, Tuition, LateFees, Sales, Scholarship,
+			UPPER(PaymentType) AS UpperPaymentType
+	FROM	Finance
+	WHERE	PaymentType = 'Cash'
+
+-- SELECT * FROM Finance
+-- SELECT * FROM FinanceByPaymentType
+
+DROP TABLE IF Exists Course
 CREATE TABLE Course
 (
 	Course2ID		VARCHAR(20)		NOT NULL	CONSTRAINT Course2ID	PRIMARY KEY,
 	CourseName		VARCHAR(50)		NULL,
-	Tuition			DECIMAL (3,2)	NULL,
+	Price			DECIMAL(5,2)	NULL,
 	Length			TINYINT			NULL,
 	Coop			BIT				NULL
 );
 GO
-SELECT * FROM Course
+
+INSERT INTO Course(Course2ID, CourseName, Price, Length, Coop)
+VALUES	('689CR', 'Microsoft .NET Developer', 6.000, 20, 1),
+		('397CX', 'Network Administrator', 10.000, 26, 1),
+		('543NC', 'Travel and Tourism', 11.500, 30, 0);
+
+GO
+
+CREATE VIEW CourseByCourseName
+AS
+	SELECT	Course2ID, CourseName, Price, Length, Coop,
+			UPPER(CourseName) AS UpperCourseName
+	FROM	Course
+	WHERE	CourseName = 'Network Administrator'
+
+-- SELECT * FROM Course
+-- SELECT * FROM CourseByCourseName
 
 DROP TABLE IF Exists School
 CREATE TABLE School
@@ -87,7 +125,7 @@ CREATE TABLE School
 	PostalCode		VARCHAR(6)		NULL
 );
 GO
-SELECT * FROM Course
+SELECT * FROM School
 
 DROP TABLE IF Exists Instructor
 CREATE TABLE Instructor
