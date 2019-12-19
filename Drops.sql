@@ -5,4 +5,4 @@ DROP TABLE IF Exists Course
 DROP TABLE IF Exists School
 DROP TABLE IF Exists Instructor
 
-DROP VIEW if EXISTS StudentByLastName 
+DROP VIEW if EXISTS StudentByLastName
