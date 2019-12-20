@@ -9,7 +9,7 @@ CREATE DATABASE Freshman;
 GO
 
 -- select your database
-USE Freshman
+USE Freshman;
 GO
 
 -- CREATE STATEMENTS
@@ -49,6 +49,7 @@ PRINT 'Instructor table created';
 GO
 
 -- SELECT * FROM Instructor
+-- SELECT * FROM InstructorBySpecialization
 
 -- 3
 CREATE TABLE Student
@@ -68,15 +69,6 @@ CREATE TABLE Student
 PRINT 'Student table created';
 GO
 
-DELETE FROM Student WHERE StudentId = '994IT' -- for example '851HO'
-
-CREATE VIEW StudentByLastName
-AS
-	SELECT StudentID, FirstName, LastName, PhoneNo,
-			UPPER(LastName) AS UpperLastName
-	FROM	Student
-	WHERE	LastName = 'Young'
-
 -- SELECT * FROM Student
 -- SELECT * FROM StudentByLastName
 
@@ -93,15 +85,6 @@ CREATE TABLE Course
 );
 PRINT 'Course table created';
 GO
-
-DELETE FROM Course WHERE CourseID = '' -- for example '397CX'
-
-CREATE VIEW CourseByCourseName
-AS
-	SELECT	Course2ID, CourseName, Price, Length, Coop,
-			UPPER(CourseName) AS UpperCourseName
-	FROM	Course
-	WHERE	CourseName = 'Network Administrator'
 
 -- SELECT * FROM Course
 -- SELECT * FROM CourseByCourseName
@@ -136,20 +119,6 @@ CREATE TABLE Finance
 PRINT 'Finance table created';
 GO
 
-DELETE FROM Finance WHERE PaymentID = 'CS002' -- for example 'CS002'
-
-CREATE VIEW FinanceByPaymentType
-AS
-	SELECT	PaymentType, Tuition, LateFees, Sales, Scholarship,
-			UPPER(PaymentType) AS UpperPaymentType
-	FROM	Finance
-	WHERE	PaymentType = 'Cash'
-
-CREATE VIEW FinanceByTuition
-AS
-	SELECT	PaymentType, Tuition, LateFees, Sales, Scholarship,
-	ORDER BY Tuition
-	
 -- SELECT * FROM Finance
 -- SELECT * FROM FinanceByPaymentType
 -- SELECT * FROM FinanceByTuition
